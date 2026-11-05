@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOX — Interactive Preview</title>
+<style>
+:root{--navy:#071331;--blue:#1268ef;--cyan:#12d9f5;--bg:#eef2f8;--ink:#17233d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px Arial,sans-serif;color:var(--ink)}
+.phone{max-width:420px;min-height:100vh;margin:auto;background:#f7f9fd;box-shadow:0 0 28px #16254a22;position:relative;padding-bottom:76px}
+header{background:linear-gradient(130deg,#06102b,#123f9e);color:white;padding:17px 16px 14px;position:sticky;top:0;z-index:2}
+.brand{font-size:27px;font-weight:900;letter-spacing:2px}.sub{font-size:11px;color:#b9d7ff;margin-top:2px}
+.top{display:flex;justify-content:space-between;align-items:center}.top button{background:#ffffff20;color:white;border:0;border-radius:12px;padding:9px 11px;font-size:18px}
+.search{margin-top:13px;background:#ffffff1c;border-radius:20px;padding:10px 13px;color:#dce8ff}
+.tabs{display:flex;gap:8px;padding:12px 12px 4px}.tabs button,.action{border:0;border-radius:18px;padding:9px 13px;background:#e5edff;color:#17418d;font-weight:700}
+.tabs button.active{background:#145fe0;color:white}
+.stories{display:flex;gap:12px;overflow:auto;padding:13px 12px}.story{min-width:62px;text-align:center;font-size:11px}.ring{width:56px;height:56px;border-radius:50%;padding:3px;margin:auto auto 5px;background:linear-gradient(135deg,#08d8ed,#2864ef)}.avatar{height:100%;border-radius:50%;display:grid;place-items:center;background:#dce8ff;font-size:22px;border:2px solid white}
+.card{background:white;border-radius:16px;margin:10px 12px;padding:14px;box-shadow:0 3px 12px #1c31500c}
+.row{display:flex;align-items:center;gap:9px}.face{width:38px;height:38px;border-radius:50%;background:#dce8ff;display:grid;place-items:center;font-size:20px}.muted{color:#78849a;font-size:12px}.spacer{flex:1}
+.posttext{line-height:1.45;margin:13px 0}.postimage{height:145px;border-radius:12px;background:linear-gradient(135deg,#c8e8ff,#526fe8);display:grid;place-items:center;color:white;font-size:35px;font-weight:900}
+.actions{display:flex;justify-content:space-around;border-top:1px solid #edf0f5;padding-top:10px;margin-top:12px}.actions button{border:0;background:none;color:#50617e;font-weight:700}
+.primary{background:var(--blue)!important;color:white!important;border:0;border-radius:12px;padding:11px 14px;font-weight:700}
+input,textarea{width:100%;border:1px solid #dce3ef;border-radius:11px;padding:11px;font:inherit;margin:7px 0}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(420px,100%);display:flex;justify-content:space-around;background:white;border-top:1px solid #e4e9f2;padding:9px 3px calc(9px + env(safe-area-inset-bottom));z-index:3}
+.bottom button{border:0;background:none;color:#68758d;font-size:11px}.bottom button b{display:block;font-size:19px;margin-bottom:2px}.bottom button.active{color:#145fe0}
+.screen{display:none}.screen.show{display:block}.notice{margin:12px;padding:11px;background:#fff7dc;border-radius:12px;color:#745b12;font-size:12px}
+.chatline{padding:13px 0;border-bottom:1px solid #edf0f5}.callbox{text-align:center;padding:30px 10px}.callbtn{border:0;border-radius:50%;width:60px;height:60px;margin:12px;background:#e6efff;font-size:24px}
+</style>
+</head>
+<body>
+<div class="phone">
+<header><div class="top"><div><div class="brand">MOX</div><div class="sub">CONNECT • SHARE • BELONG</div></div><div><button onclick="show('notifications')">♧</button> <button onclick="show('profile')">●</button></div></div><div class="search" onclick="show('search')">⌕ &nbsp; Search MOX</div></header>
+<div class="tabs"><button class="active" onclick="show('home',this)">For you</button><button onclick="show('home',this)">Following</button><button onclick="show('home',this)">Latest</button></div>
+<section id="home" class="screen show">
+<div class="stories">
+<div class="story" onclick="alert('Story preview: Your story')"><div class="ring"><div class="avatar">＋</div></div>Your story</div>
+<div class="story" onclick="alert('Story by Amina')"><div class="ring"><div class="avatar">👩🏽</div></div>Amina</div>
+<div class="story" onclick="alert('Story by Brian')"><div class="ring"><div class="avatar">👨🏾</div></div>Brian</div>
+<div class="story" onclick="alert('Story by Wanjiku')"><div class="ring"><div class="avatar">👩🏾</div></div>Wanjiku</div>
+<div class="story" onclick="alert('Story by Kevin')"><div class="ring"><div class="avatar">🧑🏽</div></div>Kevin</div>
+</div>
+<div class="card"><b>Create a post</b><textarea id="newpost" rows="2" placeholder="What's happening?"></textarea><div class="row"><button class="action" onclick="alert('Photo picker is a demo only')">＋ Photo</button><button class="action" onclick="alert('Video picker is a demo only')">▶ Video</button><span class="spacer"></span><button class="primary" onclick="addPost()">Post</button></div></div>
+<div id="feed">
+<div class="card"><div class="row"><div class="face">👩🏽</div><div><b>Amina W.</b><div class="muted">20 min ago · Isiolo</div></div><span class="spacer"></span>•••</div><div class="posttext">Enjoying the beautiful day! Sending good vibes to everyone on MOX. 💙</div><div class="postimage">MOX</div><div class="actions"><button onclick="like(this)">♡ Like <span>12</span></button><button onclick="comment()">▢ Comment</button><button onclick="share()">↗ Share</button></div></div>
+<div class="card"><div class="row"><div class="face">👨🏾</div><div><b>Brian K.</b><div class="muted">1 hr ago · Nairobi</div></div></div><div class="posttext">Welcome to MOX — connect, share and belong. 👋</div><div class="actions"><button onclick="like(this)">♡ Like <span>8</span></button><button onclick="comment()">▢ Comment</button><button onclick="share()">↗ Share</button></div></div>
+</div></section>
+<section id="friends" class="screen"><div class="card"><h3>Friends</h3><p>Find people and grow your community.</p><div class="chatline">👩🏽 &nbsp; Amina W. <button class="primary" onclick="this.textContent='Request sent'">Add friend</button></div><div class="chatline">👨🏾 &nbsp; Brian K. <button class="primary" onclick="this.textContent='Request sent'">Add friend</button></div><div class="chatline">👩🏾 &nbsp; Wanjiku N. <button class="primary" onclick="this.textContent='Request sent'">Add friend</button></div></div></section>
+<section id="videos" class="screen"><div class="card"><h3>MOX Videos</h3><div class="postimage">▶ VIDEO</div><p>Video feed preview. Real video uploads will be connected later.</p><button class="primary" onclick="alert('Video upload is a demo only')">Upload video</button></div></section>
+<section id="messages" class="screen"><div class="card"><h3>Messages</h3><div class="chatline" onclick="openChat('Amina')">👩🏽 &nbsp; <b>Amina</b><div class="muted">Tap to open conversation</div></div><div class="chatline" onclick="openChat('Brian')">👨🏾 &nbsp; <b>Brian</b><div class="muted">Tap to open conversation</div></div><div id="chatbox" style="display:none"><h3 id="chatname"></h3><div id="msgs" class="muted">No messages yet.</div><input id="msg" placeholder="Write a message"><button class="primary" onclick="sendMsg()">Send</button></div></div></section>
+<section id="profile" class="screen"><div class="card" style="text-align:center;padding:28px"><div class="face" style="margin:auto;width:70px;height:70px">🙂</div><h2>Your profile</h2><p class="muted">Your name · Edit your profile</p><button class="primary" onclick="alert('Profile editing demo')">Edit profile</button></div></section>
+<section id="calls" class="screen"><div class="card callbox"><h2>MOX Calls</h2><p>Choose a demo call type.</p><button class="callbtn" onclick="callDemo('Audio')">☎</button><button class="callbtn" onclick="callDemo('Video')">▣</button><p class="muted">Audio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Video</p><p id="callstatus" class="muted">Calls are not connected in this preview.</p></div></section>
+<section id="notifications" class="screen"><div class="card"><h3>Notifications</h3><p>You’re all caught up.</p></div></section>
+<section id="search" class="screen"><div class="card"><h3>Search MOX</h3><input placeholder="Search people, posts and groups"><p class="muted">Search is a visual preview only.</p></div></section>
+<div class="notice">Interactive preview only: buttons demonstrate the screen flow. Accounts, real posts, uploads, messaging and calls are not connected to a server yet.</div>
+<nav class="bottom">
+<button class="active" onclick="show('home',this)"><b>⌂</b>Home</button>
+<button onclick="show('friends',this)"><b>♧</b>Friends</button>
+<button onclick="show('videos',this)"><b>▶</b>Videos</button>
+<button onclick="show('messages',this)"><b>✉</b>Messages</button>
+<button onclick="show('profile',this)"><b>●</b>Profile</button>
+<button onclick="show('calls',this)"><b>☎</b>Calls</button>
+</nav>
+</div>
+<script>
+function show(id,btn){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('show'));let el=document.getElementById(id);if(el)el.classList.add('show');document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('active'));if(btn&&btn.parentElement.classList.contains('bottom'))btn.classList.add('active');}
+function like(b){let s=b.querySelector('span');let n=Number(s.textContent);if(b.dataset.liked){s.textContent=n-1;b.dataset.liked='';b.innerHTML='♡ Like <span>'+ (n-1) +'</span>';}else{s.textContent=n+1;b.dataset.liked='1';b.innerHTML='♥ Liked <span>'+(n+1)+'</span>';}}
+function comment(){let c=prompt('Write a demo comment:');if(c)alert('Comment added in this preview: '+c);}
+function share(){alert('Share preview: choose where you would like to share this post.');}
+function addPost(){let t=document.getElementById('newpost');if(!t.value.trim()){alert('Write something first.');return;}let d=document.createElement('div');d.className='card';d.innerHTML='<b>You · just now</b><div class="posttext"></div><div class="actions"><button onclick="like(this)">♡ Like <span>0</span></button><button onclick="comment()">▢ Comment</button><button onclick="share()">↗ Share</button></div>';d.querySelector('.posttext').textContent=t.value;document.getElementById('feed').prepend(d);t.value='';}
+function openChat(n){document.getElementById('chatbox').style.display='block';document.getElementById('chatname').textContent='Chat with '+n;}
+function sendMsg(){let i=document.getElementById('msg');if(i.value.trim()){let m=document.createElement('p');m.textContent='You: '+i.value;document.getElementById('msgs').append(m);i.value='';}}
+function callDemo(t){document.getElementById('callstatus').textContent=t+' call button tapped — real calling is not connected yet.';}
+</script>
+</body></html>
